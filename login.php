@@ -19,8 +19,13 @@
 
     $query = "SELECT * FROM members WHERE username = '$username' AND password = '$password'";
     $result = mysqli_query($conn, $query);
+    
 
     if ( mysqli_num_rows( $result ) == 1) {
+        session_start();
+        $_SESSION["username"]  = $username;
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION["firstname"] = $row["first_name"];
         $message = "OK";
     }
     else {
