@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Photo Club Login</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        var attempts = 0;
+        function login() {
+            my_username = $("#txt_username").val();
+            my_password = $("#txt_password").val();
+
+            $.post("login.php", 
+                { username: my_username, password: my_password },            
+                function (message) { 
+                    if (message == "OK") {
+                        response_text = "Login successful <a href='home.html'>Go to home page</a>";                
+                    }
+                    else {
+                        response_text = "Login Failed";
+                    }
+
+                    $("#response").html(response_text); 
+                }
+            );
+     
+        }
+
+        function clear() {
+            alert("clear");
+            $("#txt_username") = "";
+            $("#txt_password") = "";
+        }
+    </script>
+</head>
+<body>
+    <h1>Photo Club Login</h1>
+    <div class="prompt">
+        <label for="txt_username">User Name</label>
+        <input type="email" id="txt_username" required>
+    </div>
+    <div class="prompt">
+        <label for="txt_password">Password</label>
+        <input type="password" id="txt_password" required>
+    </div>
+    <button onclick="login()" class="joinbutton">Login</button>
+    <div id="response">
+
+    </div>
+</body>
+</html>
