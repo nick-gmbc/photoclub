@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Join Photo Club</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        function join() {
+            alert("Join");
+            my_username = $("#txt_username").val();
+            alert (my_username);
+            my_password = $("#txt_password").val();
+            my_firstname = $("#txt_firstname").val();
+            my_familyname = $("#txt_familyname").val();
+            
+            $.post("join.php", 
+                { username: my_username, password: my_password, firstname: my_firstname, familyname: my_familyname },            
+                function (message) { 
+                    $("#response").html(message); 
+                }
+            );
+     
+        }
+
+        function clear() {
+            alert("clear");
+            $("#txt_username") = "";
+            $("#txt_password") = "";
+        }
+    </script>
+</head>
+<body>
+    <h1>Join Photo Club</h1>
+    <div class="prompt">
+        <label for="txt_username">User Name</label>
+        <input type="email" id="txt_username" required>
+    </div>
+    <div class="prompt">
+        <label for="txt_password">Password</label>
+        <input type="password" id="txt_password" required>
+    </div>
+    <div class="prompt">
+        <label for="txt_firstname">First Name</label>
+        <input type="text" id="txt_firstname" required>
+    </div>
+    <div class="prompt">
+        <label for="txt_familyname">Family Name</label>
+        <input type="email" id="txt_familyname" required>
+    </div>
+    <button onclick="join()" class="joinbutton">Join</button>
+    <div id="response">
+
+    </div>
+</body>
+</html>
