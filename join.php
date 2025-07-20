@@ -17,14 +17,26 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    $create_date = date("Y-m-d", time()); 
+    // Finding duplicate member
 
-    $query = "INSERT INTO members VALUES ('$username','$password','$firstname','$familyname','$create_date')";
+    $query = "SELECT * FROM members WHERE username = '$username'";
+    $result = mysqli_query($conn, $query);
 
-    if (mysqli_query($conn, $query)) {
-        $message = "New remember created successfully";
-    } else {
-        $message = "Error: " . $sql . "<br>" . mysqli_error($conn);
+    if ( mysqli_num_rows( $result ) == 0) {
+        $create_date = date("Y-m-d", time()); 
+
+        $query = "INSERT INTO members VALUES ('$username','$password','$firstname','$familyname','$create_date')";
+
+        if (mysqli_query($conn, $query)) {
+            chdir("galleries");
+            mkdir($username);
+            $message = "New member created successfully";
+        } else {
+            $message = "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
+    }
+    else {
+        $message = "Username already taken";
     }
 
     echo $message;
